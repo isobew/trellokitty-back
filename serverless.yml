@@ -1,0 +1,16 @@
+service: trellokitty
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: us-east-1
+  environment:
+    JWT_SECRET: "minhaChaveSecreta"
+
+functions:
+  api:
+    handler: handler.api
+    events:
+      - http:
+          path: /{proxy+}
+          method: any

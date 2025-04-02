@@ -1,0 +1,38 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+logs/
+*.log
+
+# Ambiente e configurações locais
+.env
+.env.*.local
+.DS_Store
+Thumbs.db
+
+# Builds e cache
+dist/
+.build/
+.cache/
+.serverless/
+.webpack/
+.next/
+.nuxt/
+.vite/
+
+# AWS Lambda & Serverless
+.aws-sam/
+.aws-lambda-rie
+serverless.yml.log
+
+# GitHub Actions
+.github/workflows/*.log
+.github/workflows/*.bak
