@@ -12,5 +12,6 @@ router.get("/users", authController.authMiddleware, authController.getUsers);
 // Rotas de tarefas (protegidas por autenticação)
 router.get("/tasks", authController.authMiddleware, taskController.getTasks);
 router.post("/create-task", authController.authMiddleware, taskController.createTask);
+router.put("/update-task/:id", authController.authMiddleware, taskController.updateTask);
 
 module.exports = router;
