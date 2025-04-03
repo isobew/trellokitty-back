@@ -7,7 +7,9 @@ const router = express.Router();
 // Rotas de autenticação
 router.post("/register", authController.register);
 router.post("/login", authController.login);
-router.get("/users", authController.authMiddleware, authController.getUsers);
+// router.get("/users", authController.authMiddleware, authController.getUsers);
+router.get("/users", authController.getUsers);
+
 
 // Rotas de tarefas (protegidas por autenticação)
 router.get("/tasks", authController.authMiddleware, taskController.getTasks);
