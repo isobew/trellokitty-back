@@ -11,23 +11,41 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-exports.register = async (req, res) => {
-    console.log("Dados recebidos no registro:", req.body);
-    const { username, password } = req.body;
-
-    const existingUser = await User.findOne({ where: { username } });
-    if (existingUser) {
-    return res.status(400).json({ message: "Usuário já existe" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+exports.register = async (event) => {
     try {
-    const newUser = await User.create({ username, password: hashedPassword });
-    res.status(201).json({ message: "Usuário registrado!", userId: newUser.id });
+        const body = JSON.parse(event.body); // Converte o body de string para JSON
+        console.log("Dados recebidos no registro:", body);
+
+        const { username, password } = body;
+
+        if (!username || !password) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: "Username e password são obrigatórios" }),
+            };
+        }
+
+        const existingUser = await User.findOne({ where: { username } });
+        if (existingUser) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: "Usuário já existe" }),
+            };
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await User.create({ username, password: hashedPassword });
+
+        return {
+            statusCode: 201,
+            body: JSON.stringify({ message: "Usuário registrado!", userId: newUser.id }),
+        };
     } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao criar usuário" });
+        console.error("Erro ao criar usuário:", error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: "Erro ao criar usuário" }),
+        };
     }
 };
 
