@@ -16,6 +16,7 @@ afterAll(async () => {
 describe("Tasks CRUD", () => {
   let userID;
   let token;
+  let firstUser;
 
   beforeEach(async () => {
     await Task.destroy({ where: {} });
@@ -36,7 +37,7 @@ describe("Tasks CRUD", () => {
       
     token = loginResponse.body.token;
     console.log("Token gerado:", token);
-    
+
     const users = await request(app)
     .get("/users")
     .set("Authorization", `Bearer ${token}`);
