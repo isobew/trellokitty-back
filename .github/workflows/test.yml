@@ -33,11 +33,14 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Configurar variável DATABASE_URL
-        run: echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
+      # - name: Configurar variável DATABASE_URL
+      #   run: echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
 
       # - name: Rodar migrations
       #   run: npx sequelize-cli db:migrate
 
       - name: Rodar testes
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgres://testuser:testpassword@localhost:5432/testdb
         run: npm test

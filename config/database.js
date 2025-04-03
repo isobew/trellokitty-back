@@ -1,18 +1,14 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from "sequelize";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL não está definida");
-}
+const isTestEnv = process.env.NODE_ENV === "test";
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: "postgres",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-  logging: false,
-});
+const sequelize = new Sequelize(
+  isTestEnv ? "sqlite::memory:" : process.env.DATABASE_URL,
+  {
+    dialect: isTestEnv ? "sqlite" : "postgres",
+    logging: false,
+    dialectOptions: isTestEnv ? {} : { ssl: { require: true, rejectUnauthorized: false } }, 
+  }
+);
 
 export default sequelize;
