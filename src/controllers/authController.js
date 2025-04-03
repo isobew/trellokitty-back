@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../models/User.js"; // Certifique-se de adicionar .js no final
+import User from "../models/User.js";
 
 const getUsers = async (req, res) => {
     try {

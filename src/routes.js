@@ -1,6 +1,6 @@
 import express from "express";
-import authController from "./controllers/authController";
-import taskController from "./controllers/taskController";
+import authController from "./controllers/authController.js";
+import taskController from "./controllers/taskController.js";
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.post("/create-task", authController.authMiddleware, taskController.create
 router.put("/update-task/:id", authController.authMiddleware, taskController.updateTask);
 router.delete("/delete-task/:id", authController.authMiddleware, taskController.deleteTask);
 
-module.exports = router;
+export default router;

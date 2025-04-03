@@ -1,5 +1,5 @@
-import Task from '../models/Task'; 
-import User from'../models/User';  
+import Task from '../models/Task.js'; 
+import User from'../models/User.js';  
 
 const getTasks = async (req, res) => {
     try {
