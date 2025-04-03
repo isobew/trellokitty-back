@@ -13,5 +13,6 @@ router.get("/users", authController.authMiddleware, authController.getUsers);
 router.get("/tasks", authController.authMiddleware, taskController.getTasks);
 router.post("/create-task", authController.authMiddleware, taskController.createTask);
 router.put("/update-task/:id", authController.authMiddleware, taskController.updateTask);
+router.delete("/delete-task/:id", authController.authMiddleware, taskController.deleteTask);
 
 module.exports = router;

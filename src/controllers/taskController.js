@@ -54,3 +54,23 @@ exports.updateTask = async (req, res) => {
       res.status(500).json({ message: 'Erro ao atualizar tarefa', error: err });
     }
 };
+
+
+exports.deleteTask = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const task = await Task.findByPk(id); 
+  
+      if (!task) {
+        return res.status(404).json({ message: "Tarefa não encontrada" });
+      }
+  
+      await task.destroy();  
+  
+      res.status(204).send();  
+    } catch (err) {
+      res.status(500).json({ message: 'Erro ao deletar tarefa', error: err });
+    }
+};
+  
