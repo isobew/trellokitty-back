@@ -1,17 +1,15 @@
-service: trellokitty
-
 provider:
   name: aws
   runtime: nodejs22.x
   region: us-east-1
   environment:
     JWT_SECRET: "minhaChaveSecreta"
-    DATABASE_URL: "postgres://neondb_owner:npg_Nmy3iEBsg9wl@ep-curly-glitter-a4k4bhiq-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+    DATABASE_URL: "postgres://seu_usuario:senha@host/neondb?sslmode=require"
 
 functions:
   api:
     handler: handler.api
     events:
-      - http:
-          path: /{proxy+}
-          method: any
+      - httpApi:
+          path: "/{proxy+}"
+          method: "*"

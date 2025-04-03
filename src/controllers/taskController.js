@@ -1,5 +1,5 @@
-const Task = require('../models/Task'); 
-const User = require('../models/User');  
+import Task from '../models/Task'; 
+import User from'../models/User';  
 
 exports.getTasks = async (req, res) => {
     try {

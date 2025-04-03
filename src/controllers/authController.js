@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../models/User"); 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import User from "../models/User"; 
 
 exports.getUsers = async (req, res) => {
     try {
@@ -11,41 +11,26 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-exports.register = async (event) => {
+exports.register = async (req, res) => {
     try {
-        const body = JSON.parse(event.body); // Converte o body de string para JSON
-        console.log("Dados recebidos no registro:", body);
-
-        const { username, password } = body;
-
+        const { username, password } = req.body;
+        
         if (!username || !password) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Username e password são obrigatórios" }),
-            };
+            return res.status(400).json({ message: "Username e password são obrigatórios" });
         }
 
         const existingUser = await User.findOne({ where: { username } });
         if (existingUser) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Usuário já existe" }),
-            };
+            return res.status(400).json({ message: "Usuário já existe" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({ username, password: hashedPassword });
 
-        return {
-            statusCode: 201,
-            body: JSON.stringify({ message: "Usuário registrado!", userId: newUser.id }),
-        };
+        return res.status(201).json({ message: "Usuário registrado!", userId: newUser.id });
     } catch (error) {
         console.error("Erro ao criar usuário:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Erro ao criar usuário" }),
-        };
+        return res.status(500).json({ message: "Erro ao criar usuário" });
     }
 };
 

@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/isobew/trellokitty-back#readme",
   "dependencies": {
-    "aws-serverless-express": "^3.4.0",
+    "@vendia/serverless-express": "^4.12.6",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",

@@ -1,6 +1,6 @@
-const express = require("express");
-const authController = require("./controllers/authController");
-const taskController = require("./controllers/taskController");
+import express from "express";
+import authController from "./controllers/authController";
+import taskController from "./controllers/taskController";
 
 const router = express.Router();
 
