@@ -1,0 +1,45 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test_user"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Install SQLite
+        run: sudo apt-get install -y sqlite3
+
+      - name: Rodar testes
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgres://testuser:testpassword@localhost:5432/testdb
+          PGSSLMODE: disable
+          JWT_SECRET: supersecreto
+        run: npm test
