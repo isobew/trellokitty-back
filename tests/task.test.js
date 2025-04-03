@@ -36,7 +36,15 @@ describe("Tasks CRUD", () => {
       
     token = loginResponse.body.token;
     console.log("Token gerado:", token);
-    userID = user.id;
+    // userID = user.id;
+    const users = await request(app)
+    .get("/users")
+    .set("Authorization", `Bearer ${token}`);
+
+    console.log("Usuários na API:", users.body);
+
+    firstUser = users.body[0];
+    userID = firstUser?.id;
     console.log("user gerado:", userID);
   });
 
