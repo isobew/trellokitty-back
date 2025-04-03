@@ -12,6 +12,7 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
+    console.log("Dados recebidos no registro:", req.body);
     const { username, password } = req.body;
 
     const existingUser = await User.findOne({ where: { username } });
