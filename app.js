@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import routes from "./src/routes.js";
 import sequelize from "./config/database.js";
-import testRoutes from "./src/testRoutes.js";
+import testRoutes from "./testRoutes.js";
 
 const app = express();
 app.use(express.json());
