@@ -6,6 +6,7 @@ provider:
   region: us-east-1
   environment:
     JWT_SECRET: "minhaChaveSecreta"
+    DATABASE_URL: "postgresql://neondb_owner:npg_Nmy3iEBsg9wl@ep-curly-glitter-a4k4bhiq-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
 
 functions:
   api:
