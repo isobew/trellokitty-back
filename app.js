@@ -10,8 +10,23 @@ app.use(routes);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+async function startServer() {
+    try {
+        await sequelize.authenticate();
+        console.log("Conectado ao banco!");
+
+        await sequelize.sync({ alter: true }); 
+        console.log("Banco sincronizado!");
+
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Erro ao conectar ao banco de dados:", error);
+        process.exit(1); 
+    }
+}
+
+startServer();
 
 module.exports = { app, sequelize };
