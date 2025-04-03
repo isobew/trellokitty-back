@@ -1,7 +1,7 @@
 import Task from '../models/Task'; 
 import User from'../models/User';  
 
-exports.getTasks = async (req, res) => {
+const getTasks = async (req, res) => {
     try {
     const tasks = await Task.findAll({
         include: User, 
@@ -12,7 +12,7 @@ exports.getTasks = async (req, res) => {
     }
 };
 
-exports.createTask = async (req, res) => {
+const createTask = async (req, res) => {
     const { title, description, userId } = req.body; 
 
     try {
@@ -32,7 +32,7 @@ exports.createTask = async (req, res) => {
     }
 };
 
-exports.updateTask = async (req, res) => {
+const updateTask = async (req, res) => {
     const { id } = req.params;
     const { title, description, status } = req.body;
   
@@ -56,7 +56,7 @@ exports.updateTask = async (req, res) => {
 };
 
 
-exports.deleteTask = async (req, res) => {
+const deleteTask = async (req, res) => {
     const { id } = req.params;
   
     try {
@@ -74,3 +74,4 @@ exports.deleteTask = async (req, res) => {
     }
 };
   
+export default { getTasks, createTask, updateTask, deleteTask };

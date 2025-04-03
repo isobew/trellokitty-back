@@ -1,20 +1,20 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../models/User"; 
+import User from "../models/User.js"; // Certifique-se de adicionar .js no final
 
-exports.getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
-      const users = await User.findAll();
-      res.json(users);
+        const users = await User.findAll();
+        res.json(users);
     } catch (err) {
-      res.status(500).json({ message: 'Erro ao buscar usuários', error: err });
+        res.status(500).json({ message: "Erro ao buscar usuários", error: err });
     }
 };
 
-exports.register = async (req, res) => {
+const register = async (req, res) => {
     try {
         const { username, password } = req.body;
-        
+
         if (!username || !password) {
             return res.status(400).json({ message: "Username e password são obrigatórios" });
         }
@@ -34,21 +34,19 @@ exports.register = async (req, res) => {
     }
 };
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { username, password } = req.body;
-
     const token = req.header("Authorization")?.split(" ")[1];
 
     if (token) {
         try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
-        return res.status(200).json({
-            message: "Usuário já está logado",
-            user: decoded
-        });
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            return res.status(200).json({
+                message: "Usuário já está logado",
+                user: decoded
+            });
         } catch (err) {
-        console.log("Token inválido", err);
+            console.log("Token inválido", err);
         }
     }
 
@@ -63,19 +61,20 @@ exports.login = async (req, res) => {
     res.json({ token: newToken });
 };
 
-exports.authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
     const token = req.header("Authorization")?.split(" ")[1];
-  
+
     if (!token) {
-      return res.status(401).json({ message: "Token não fornecido" });
+        return res.status(401).json({ message: "Token não fornecido" });
     }
-  
+
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.userId = decoded.id; 
-      next(); 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.id;
+        next();
     } catch (err) {
-      return res.status(401).json({ message: "Token inválido" });
+        return res.status(401).json({ message: "Token inválido" });
     }
 };
-  
+
+export default { getUsers, register, login, authMiddleware };
