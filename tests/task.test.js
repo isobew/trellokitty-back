@@ -27,12 +27,17 @@ describe("Tasks CRUD", () => {
       password: hashedPassword
     });
 
+    console.log("Usuário criado:", newUser.dataValues);
+
     const loginResponse = await request(app)
       .post("/login")
       .send({ username: "testuser", password: "senha123" });
 
+      
     token = loginResponse.body.token;
+    console.log("Token gerado:", token);
     userID = user.id;
+    console.log("user gerado:", userID);
   });
 
   afterEach(async () => {
@@ -51,6 +56,8 @@ describe("Tasks CRUD", () => {
           description: "Descrição da tarefa",
           userId: userID,
         });
+
+      console.log("Resposta do POST /tasks:", response.body, response.status);
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty("id");
