@@ -28,25 +28,18 @@ describe("Tasks CRUD", () => {
       password: hashedPassword
     });
 
-    console.log("Usuário criado:", user.dataValues);
-
     const loginResponse = await request(app)
       .post("/login")
       .send({ username: "testuser", password: "senha123" });
 
-      
     token = loginResponse.body.token;
-    console.log("Token gerado:", token);
 
     const users = await request(app)
     .get("/users")
     .set("Authorization", `Bearer ${token}`);
 
-    console.log("Usuários na API:", users.body);
-
     firstUser = users.body[0];
     userID = firstUser?.id;
-    console.log("user gerado:", userID);
   });
 
   afterEach(async () => {
@@ -65,8 +58,6 @@ describe("Tasks CRUD", () => {
           description: "Descrição da tarefa",
           userId: userID,
         });
-
-      console.log("Resposta do POST /create-task:", response.body, response.status);
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty("id");
