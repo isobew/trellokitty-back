@@ -1,9 +1,17 @@
 import request from "supertest";
-import { app } from "../app.js"; 
+import { app, sequelize } from "../app.js"; 
 import Task from "../src/models/Task.js";
 import User from "../src/models/User.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
+
+beforeAll(async () => {
+  await sequelize.sync({ force: true });
+});
+
+afterAll(async () => {
+  await sequelize.close(); 
+}); 
 
 describe("Tasks CRUD", () => {
   let userID;
