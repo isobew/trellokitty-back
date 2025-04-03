@@ -27,7 +27,7 @@ describe("Tasks CRUD", () => {
       password: hashedPassword
     });
 
-    console.log("Usuário criado:", newUser.dataValues);
+    console.log("Usuário criado:", user.dataValues);
 
     const loginResponse = await request(app)
       .post("/login")
@@ -36,7 +36,7 @@ describe("Tasks CRUD", () => {
       
     token = loginResponse.body.token;
     console.log("Token gerado:", token);
-    // userID = user.id;
+    
     const users = await request(app)
     .get("/users")
     .set("Authorization", `Bearer ${token}`);
