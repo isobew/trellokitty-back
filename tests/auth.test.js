@@ -23,6 +23,7 @@ describe("POST /login", () => {
             .post("/login")
             .send({ username: "isabella", password: "senha123" });
 
+        console.log(response.body);
         expect(response.status).toBe(200);  
         expect(response.body).toHaveProperty("token"); 
     });
