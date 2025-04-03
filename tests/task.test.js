@@ -54,10 +54,10 @@ describe("Tasks CRUD", () => {
     await User.destroy({ where: {} });
   });
 
-  describe("POST /tasks", () => {
+  describe("POST /create-task", () => {
     it("should create a new task", async () => {
       const response = await request(app)
-        .post("/tasks")
+        .post("/create-task")
         .set("Authorization", `Bearer ${token}`)
         .set("Content-Type", "application/json")
         .send({
@@ -66,7 +66,7 @@ describe("Tasks CRUD", () => {
           userId: userID,
         });
 
-      console.log("Resposta do POST /tasks:", response.body, response.status);
+      console.log("Resposta do POST /create-task:", response.body, response.status);
 
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty("id");
@@ -76,7 +76,7 @@ describe("Tasks CRUD", () => {
 
     it("should return an error if the user does not exist", async () => {
       const response = await request(app)
-        .post("/tasks")
+        .post("/create-task")
         .set("Authorization", `Bearer ${token}`) 
         .set("Content-Type", "application/json")
         .send({
@@ -108,7 +108,7 @@ describe("Tasks CRUD", () => {
     expect(response.body[0]).toHaveProperty("userId", userID);
   });
 
-  describe("PUT /tasks/:id", () => {
+  describe("PUT /update-task/:id", () => {
     it("should update a task", async () => {
       const task = await Task.create({
         title: "Tarefa Original",
@@ -123,7 +123,7 @@ describe("Tasks CRUD", () => {
       };
 
       const response = await request(app)
-        .put(`/tasks/${task.id}`)
+        .put(`/update-task/${task.id}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Content-Type", "application/json")
         .send(updatedTask);
@@ -137,7 +137,7 @@ describe("Tasks CRUD", () => {
       const fakeUUID = uuidv4();
 
       const response = await request(app)
-        .put(`/tasks/${fakeUUID}`)
+        .put(`/update-task/${fakeUUID}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Content-Type", "application/json")
         .send({
@@ -151,7 +151,7 @@ describe("Tasks CRUD", () => {
     });
   });
 
-  describe("DELETE /tasks/:id", () => {
+  describe("DELETE /delete-task/:id", () => {
     it("should delete a task", async () => {
       const task = await Task.create({
         title: "Tarefa para deletar",
@@ -160,7 +160,7 @@ describe("Tasks CRUD", () => {
       });
 
       const response = await request(app)
-        .delete(`/tasks/${task.id}`)
+        .delete(`/delete-task/${task.id}`)
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(204);
@@ -170,7 +170,7 @@ describe("Tasks CRUD", () => {
       const fakeUUID = uuidv4();
 
       const response = await request(app)
-        .delete(`/tasks/${fakeUUID}`)
+        .delete(`/delete-task/${fakeUUID}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Content-Type", "application/json"); 
 
