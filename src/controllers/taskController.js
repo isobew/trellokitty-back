@@ -13,7 +13,8 @@ const getTasks = async (req, res) => {
 };
 
 const createTask = async (req, res) => {
-    const { title, description, userId } = req.body; 
+    const { title, description } = req.body; 
+    const userId = req.userId;
 
     try {
     const user = await User.findByPk(userId);
