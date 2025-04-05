@@ -92,7 +92,7 @@ Retorna o token JWT.
 Estrutura do Body
 ```json
 {
-  "email": "john@example.com",
+  "username": "john_doe",
   "password": "123456"
 }
 ```
