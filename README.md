@@ -140,3 +140,14 @@ Atualiza uma tarefa existente.
 
 ### DELETE /tasks/:id
 Remove uma tarefa.
+
+
+---
+
+## Documentação da API (Swagger)
+A documentação completa dos endpoints da API está disponível via Swagger.
+
+🔗 Acesse aqui a documentação Swagger:
+ - https://v6y4qi4paxpzlgdch7f7reekvy0znrph.lambda-url.us-east-1.on.aws/api-docs/
+
+> Obs: Certifique-se de clicar em "Authorize" e informar seu token JWT para testar endpoints protegidos
