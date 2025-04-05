@@ -4,7 +4,7 @@ import routes from "./src/routes/routes.js";
 import sequelize from "./config/database.js";
 import cors from "cors";
 import swaggerUi from 'swagger-ui-express';
-import { swaggerSpec } from './swaggerConfig';
+import { swaggerSpec } from './swagger.js';
 
 import "./src/models/Task.js"; 
 import "./src/models/User.js"; 
