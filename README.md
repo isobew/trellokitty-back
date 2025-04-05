@@ -46,12 +46,13 @@ API RESTful desenvolvida em **Node.js + Express**, utilizando arquitetura server
 
 ## Como rodar localmente
 
-    ```bash
-    git clone https://github.com/isobew/trellokitty-back.git
-    cd trellokitty-back
-    npm install
-    cp .env.example .env 
-    npm run dev
+```bash
+git clone https://github.com/isobew/trellokitty-back.git
+cd trellokitty-back
+npm install
+cp .env.example .env 
+npm run dev
+```
 
 ---
  
