@@ -12,7 +12,7 @@ app.use(routes);
 sequelize.authenticate()
     .then(() => {
         console.log("Conectado ao banco!")
-        return sequelize.sync({ alter: true });
+        return sequelize.sync({ force: true });
     })
     .then(() => {
         console.log("Banco sincronizado com sucesso!");
