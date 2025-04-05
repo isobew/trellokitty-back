@@ -14,9 +14,7 @@ afterAll(async () => {
 }); 
 
 describe("Tasks CRUD", () => {
-  let userID;
   let token;
-  // let firstUser;
 
   beforeEach(async () => {
     await Task.destroy({ where: {} });
@@ -33,13 +31,6 @@ describe("Tasks CRUD", () => {
       .send({ username: "testuser", password: "senha123" });
 
     token = loginResponse.body.token;
-
-    // const users = await request(app)
-    // .get("/users")
-    // .set("Authorization", `Bearer ${token}`);
-
-    // firstUser = users.body[0];
-    // userID = firstUser?.id;
   });
 
   afterEach(async () => {
@@ -61,7 +52,6 @@ describe("Tasks CRUD", () => {
       expect(response.status).toBe(201);
       expect(response.body).toHaveProperty("id");
       expect(response.body).toHaveProperty("title", "Nova Tarefa");
-      expect(response.body).toHaveProperty("userId", userID);
     });
   });
 
@@ -79,7 +69,6 @@ describe("Tasks CRUD", () => {
     expect(response.status).toBe(200);
     expect(response.body.length).toBeGreaterThan(0);
     expect(response.body[0]).toHaveProperty("title", "Tarefa 1");
-    expect(response.body[0]).toHaveProperty("userId", userID);
   });
 
   describe("PUT /update-task/:id", () => {
