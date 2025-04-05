@@ -19,6 +19,10 @@ const Task = sequelize.define('Task', {
     status: {
         type: DataTypes.ENUM('pendente', 'em andamento', 'concluída'),
         defaultValue: 'pendente',
+    },
+    category: {
+        type: DataTypes.ENUM('bug', 'feature', 'adjust', 'idea'),
+        defaultValue: 'feature',
     }
 });
 

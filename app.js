@@ -10,7 +10,13 @@ app.use(express.json());
 app.use(routes);
 
 sequelize.authenticate()
-    .then(() => console.log("Conectado ao banco!"))
+    .then(() => {
+        console.log("Conectado ao banco!")
+        return sequelize.sync({ alter: true });
+    })
+    .then(() => {
+        console.log("Banco sincronizado com sucesso!");
+    })
     .catch((error) => console.error("Erro ao conectar ao banco de dados:", error));
 
 export { app, sequelize };
