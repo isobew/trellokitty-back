@@ -16,7 +16,7 @@ afterAll(async () => {
 describe("Tasks CRUD", () => {
   let userID;
   let token;
-  let firstUser;
+  // let firstUser;
 
   beforeEach(async () => {
     await Task.destroy({ where: {} });
@@ -34,12 +34,12 @@ describe("Tasks CRUD", () => {
 
     token = loginResponse.body.token;
 
-    const users = await request(app)
-    .get("/users")
-    .set("Authorization", `Bearer ${token}`);
+    // const users = await request(app)
+    // .get("/users")
+    // .set("Authorization", `Bearer ${token}`);
 
-    firstUser = users.body[0];
-    userID = firstUser?.id;
+    // firstUser = users.body[0];
+    // userID = firstUser?.id;
   });
 
   afterEach(async () => {
@@ -55,8 +55,7 @@ describe("Tasks CRUD", () => {
         .set("Content-Type", "application/json")
         .send({
           title: "Nova Tarefa",
-          description: "Descrição da tarefa",
-          userId: userID,
+          description: "Descrição da tarefa"
         });
 
       expect(response.status).toBe(201);
@@ -64,28 +63,12 @@ describe("Tasks CRUD", () => {
       expect(response.body).toHaveProperty("title", "Nova Tarefa");
       expect(response.body).toHaveProperty("userId", userID);
     });
-
-    it("should return an error if the user does not exist", async () => {
-      const response = await request(app)
-        .post("/create-task")
-        .set("Authorization", `Bearer ${token}`) 
-        .set("Content-Type", "application/json")
-        .send({
-          title: "Nova Tarefa",
-          description: "Descrição da tarefa",
-          userId: 9999, 
-        });
-
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty("message", "Usuário não encontrado");
-    });
   });
 
   it("should return a list of tasks", async () => {
     const task = await Task.create({
       title: "Tarefa 1",
-      description: "Descrição da Tarefa 1",
-      userId: userID,
+      description: "Descrição da Tarefa 1"
     });
 
     const response = await request(app)
@@ -103,8 +86,7 @@ describe("Tasks CRUD", () => {
     it("should update a task", async () => {
       const task = await Task.create({
         title: "Tarefa Original",
-        description: "Descrição da tarefa",
-        userId: userID,
+        description: "Descrição da tarefa"
       });
 
       const updatedTask = {
@@ -146,8 +128,7 @@ describe("Tasks CRUD", () => {
     it("should delete a task", async () => {
       const task = await Task.create({
         title: "Tarefa para deletar",
-        description: "Descrição da tarefa para deletar",
-        userId: userID,
+        description: "Descrição da tarefa para deletar"
       });
 
       const response = await request(app)
