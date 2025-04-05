@@ -35,7 +35,7 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const { id } = req.params;
-    const { title, description, status } = req.body;
+    const { title, description, status, user_id } = req.body;
   
     try {
       const task = await Task.findByPk(id);  
@@ -47,6 +47,7 @@ const updateTask = async (req, res) => {
       task.title = title || task.title;
       task.description = description || task.description;
       task.status = status || task.status;
+      task.userId = user_id || task.userId;
   
       await task.save(); 
   
