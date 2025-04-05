@@ -64,3 +64,79 @@ O arquivo de configuração do workflow se encontra em: **.github/workflows/depl
 
 > **Observação:** Embora inicialmente tenha sido usado um banco local, o código atual está adaptado exclusivamente para rodar com o banco remoto Neon e em ambiente de produção na AWS Lambda.
 Após ajustes ao longo do desenvolvimento, não há mais suporte configurado para rodar com banco PostgreSQL local.
+
+
+## Endpoints da API
+
+> Base URL: `https://v6y4qi4paxpzlgdch7f7reekvy0znrph.lambda-url.us-east-1.on.aws`
+
+--- 
+
+### Autenticação
+
+#### POST /register
+Cria um novo usuário.
+
+Estrutura do Body
+```json
+{
+"username": "john_doe",
+"password": "123456"
+}
+```
+---
+
+### POST /login
+Retorna o token JWT.
+
+Estrutura do Body
+```json
+{
+  "email": "john@example.com",
+  "password": "123456"
+}
+```
+---
+
+
+## Usuários
+
+### GET /users
+Retorna todos os usuários.
+
+
+---
+
+## Tarefas
+
+### GET /tasks
+Lista todas as tarefas.
+
+### POST /create-task
+Cria uma nova tarefa.
+
+Estrutura do Body
+```json
+{
+  "title": "Nova tarefa",
+  "description": "Descrição",
+  "category": "trabalho"
+}
+```
+> Observação: A coluna de "status" é definida automaticamente como "pendente" na criação e a de "userId" é definida como o id do usuário que a criou.
+
+### PUT /update-task/:id
+Atualiza uma tarefa existente.
+```json
+{
+  "title": "Nova tarefa",
+  "description": "Descrição",
+  "category": "trabalho",
+  "status": "em andamento",
+  "userId": "id-do-usuário"
+}
+```
+> Observação: Na estrutura do front-end, o campo status não é atualizado manualmente por este endpoint. A mudança de status ocorre exclusivamente via interação de drag and drop no quadro.
+
+### DELETE /tasks/:id
+Remove uma tarefa.
