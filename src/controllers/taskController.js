@@ -13,7 +13,7 @@ const getTasks = async (req, res) => {
 };
 
 const createTask = async (req, res) => {
-    const { title, description } = req.body; 
+    const { title, description, category } = req.body; 
     const userId = req.userId;
 
     try {
@@ -25,7 +25,8 @@ const createTask = async (req, res) => {
     const newTask = await Task.create({
         title,
         description,
-        userId, 
+        category,
+        userId
     });
     res.status(201).json(newTask); 
     } catch (err) {
@@ -35,7 +36,7 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const { id } = req.params;
-    const { title, description, status, user_id } = req.body;
+    const { title, description, status, user_id, category } = req.body;
   
     try {
       const task = await Task.findByPk(id);  
@@ -47,6 +48,7 @@ const updateTask = async (req, res) => {
       task.title = title || task.title;
       task.description = description || task.description;
       task.status = status || task.status;
+      task.category = category || task.category;
       task.userId = user_id || task.userId;
   
       await task.save(); 

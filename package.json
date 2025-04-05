@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "sync": "node sync.js"
   },
   "repository": {
     "type": "git",
