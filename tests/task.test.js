@@ -46,7 +46,8 @@ describe("Tasks CRUD", () => {
         .set("Content-Type", "application/json")
         .send({
           title: "Nova Tarefa",
-          description: "Descrição da tarefa"
+          description: "Descrição da tarefa",
+          category: "feature"
         });
 
       expect(response.status).toBe(201);
@@ -58,7 +59,8 @@ describe("Tasks CRUD", () => {
   it("should return a list of tasks", async () => {
     const task = await Task.create({
       title: "Tarefa 1",
-      description: "Descrição da Tarefa 1"
+      description: "Descrição da Tarefa 1",
+      category: "feature"
     });
 
     const response = await request(app)
@@ -75,12 +77,14 @@ describe("Tasks CRUD", () => {
     it("should update a task", async () => {
       const task = await Task.create({
         title: "Tarefa Original",
-        description: "Descrição da tarefa"
+        description: "Descrição da tarefa",
+        category: "feature"
       });
 
       const updatedTask = {
         title: "Tarefa Atualizada",
         description: "Descrição atualizada",
+        category: "feature",
         status: "em andamento"
       };
 
@@ -105,6 +109,7 @@ describe("Tasks CRUD", () => {
         .send({
           title: "Tarefa Atualizada",
           description: "Descrição atualizada",
+          category: "feature",
           status: "em andamento"
         });
 
@@ -117,7 +122,8 @@ describe("Tasks CRUD", () => {
     it("should delete a task", async () => {
       const task = await Task.create({
         title: "Tarefa para deletar",
-        description: "Descrição da tarefa para deletar"
+        description: "Descrição da tarefa para deletar",
+        category: "feature"
       });
 
       const response = await request(app)
