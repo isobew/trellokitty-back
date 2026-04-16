@@ -1,3 +1,5 @@
+# O ambiente de produção na AWS Lambda desse repositório foi deletado.
+
 # 🐱 TrelloKitty Back
 
 API RESTful desenvolvida em **Node.js + Express**, utilizando arquitetura serverless com **AWS Lambda**, **Sequelize ORM** e banco de dados **PostgreSQL** hospedado na [Neon](https://neon.tech). Este projeto faz parte do sistema estilo Trello com funcionalidades como autenticação, gerenciamento de tarefas e usuários.
